@@ -3,7 +3,7 @@
     height: 100vh;
     width: 100vw;
     text-align: center;
-    background-color: green;
+    background-color: #51A556;
     font-family: sans-serif;
 }
 
@@ -43,7 +43,9 @@ width: 5em;
 }
 
 .clock{
-font-size: 2000%;
+width: 80%;
+margin: auto;
+font-size: 15vw;
 }
 
 

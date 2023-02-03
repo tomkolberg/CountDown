@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,16 +6,27 @@ import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
+  @HostListener('document:keyup', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+      switch  (event.key) {
+          case 'Escape':
+            this.soundPlayer.pause();
+              break;
+      }
+  }
 
   date: any;
   now: any;
   difference: number;
   finalEndDate: any =  new Date();
-  redTime: number;
-  yellowTime: number;
+  redMin: number;
+  redSek:number;
+  yellowMin: number;
+  yellowSek:number
   timeOver: boolean;
 
 
+  soundPlayer = new Audio("../../../assets/sounds/ukulele.mp3");
 
   color: any;
 
@@ -48,18 +59,25 @@ export class AppComponent implements AfterViewInit {
     this.seconds.nativeElement.innerText = String(difference).padStart(2,'0');
 
 
-    if (this.hours.nativeElement.innerText < 1 && this.minutes.nativeElement.innerText < this.yellowTime) {
-      if (this.minutes.nativeElement.innerText < this.redTime) {
-        console.log("READ");
-        this.color = "red";
+    if (this.hours.nativeElement.innerText < 1 && this.minutes.nativeElement.innerText <= this.yellowMin && this.seconds.nativeElement.innerText <= this.yellowSek) {
+      if (this.minutes.nativeElement.innerText <= this.redMin && this.seconds.nativeElement.innerText <= this.redSek) {
+        this.color = "#E30018";
+        if(this.redSek<61){
+          this.redSek = 61;
+        }
+        
       }
       else {
-        this.color = "yellow";
+        this.color = "#FFC779";
+        if(this.yellowSek<61){
+          this.yellowSek = 61;
+        }
       }
     } else {
-      this.color = "green";
+      this.color = "#51A556";
     }
     if(this.seconds.nativeElement.innerText == 0 && this.hours.nativeElement.innerText==0 && this.minutes.nativeElement.innerText==0){
+      this.color = "#E30018";
       this.playAudio();
       this.timeOver = true;
     }
@@ -68,14 +86,22 @@ export class AppComponent implements AfterViewInit {
   }
 
 
-  getInputs(h: any, m: any, s: any, gelb: any, rot: any) {
+  getInputs(h: any, m: any, s: any, yellowM: any,yellowS:any, redM: any, redS: any) {
+
+    if(this.soundPlayer.currentTime !== 0){
+      this.soundPlayer.pause();
+      this.soundPlayer.currentTime = 0;
+    }
+
     this.finalEndDate = new Date();
     //convert Input from String to Number
     let H = +h;
     let M = +m;
     let S = +s;
-    this.redTime = +rot;
-    this.yellowTime = +gelb;
+    this.redMin = +redM;
+    this.redSek = +redS;
+    this.yellowMin = +yellowM;
+    this.yellowSek = +yellowS;
     this.now = this.finalEndDate.getTime();
     
     this.finalEndDate.setHours(this.finalEndDate.getHours() + H);
@@ -100,9 +126,10 @@ export class AppComponent implements AfterViewInit {
   }
 
   playAudio(){
-    let audio = new Audio();
-    audio.src = "../../../assets/sounds/ukulele.mp3";
-    audio.load();
-    audio.play();
+this.soundPlayer.play();
+  }
+
+  stopMusic(){
+    
   }
 }

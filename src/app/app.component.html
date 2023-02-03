@@ -1,4 +1,4 @@
-<div class="countdown" style="background-color: {{this.color}} ;">
+<div class="countdown" style="background-color: {{this.color}}" >
 
 
   <div class="selectTime">
@@ -20,19 +20,32 @@
       <input matInput type="number" value=0 #sekundenInput class="timeInput">
     </mat-form-field>
 
-<mat-form-field class="example-full-width" style="background-color: rgb(255, 255, 0); height: 4em;">
-  <mat-label>Gelb:</mat-label>
-  <input matInput type="number" value=0 #gelb style="text-align: right;font-weight: bold; width: 5em; margin: 0.5em;">
-</mat-form-field>    
-<mat-form-field class="example-full-width" style="background-color: rgb(248,64,64); height: 4em;">
-  <mat-label>Rot:</mat-label>
-  <input matInput type="number" value=0 #rot style="background-color: rgb(248, 64, 64); text-align: right; font-weight: bold; width: 5em; margin: 0.5em;">
+  <mat-form-field class="example-full-width" style="background-color: #FFC779; height: 4em;">
+    <mat-label>Gelb Minuten:</mat-label>
+    <input matInput type="number" value=0 #gelbMin style="text-align: right;font-weight: bold; width: 5em; margin: 0.5em;">
+  </mat-form-field> 
+  
+  <mat-form-field class="example-full-width" style="background-color: #FFC779; height: 4em; margin-left: -1em;">
+    <mat-label>Gelb Sekunden:</mat-label>
+    <input matInput type="number" value=0 #gelbSek style="text-align: right;font-weight: bold; width: 5em; margin: 0.5em;">
+  </mat-form-field> 
+
+
+
+
+<mat-form-field class="example-full-width" style="background-color: #E30018; height: 4em;">
+  <mat-label>Rot Minuten:</mat-label>
+  <input matInput type="number" value=0 #rotMin style=" text-align: right; font-weight: bold; width: 5em; margin: 0.5em;">
+</mat-form-field>
+<mat-form-field class="example-full-width" style="background-color: #E30018; height: 4em;margin-left: -1em;">
+  <mat-label>Rot Sekunden:</mat-label>
+  <input matInput type="number" value=0 #rotSek style=" text-align: right; font-weight: bold; width: 5em; margin: 0.5em;">
 </mat-form-field>
 </form>
 <br/>
 <br/>
 
-<button mat-raised-button color="primary" (click)="getInputs(stundenInput.value , minutenInput.value, sekundenInput.value, gelb.value, rot.value)" style="margin-right: 3em;">Start</button>
+<button mat-raised-button color="primary" (click)="getInputs(stundenInput.value , minutenInput.value, sekundenInput.value, gelbMin.value, gelbSek.value, rotMin.value, rotSek.value)" style="margin-right: 3em;">Start</button>
 <button mat-raised-button color="warn" (click)="reset()">Reset</button>
   
 </div>
@@ -53,5 +66,7 @@
     </tr>
   </table>
 </div>
+
+
 </div>
 
